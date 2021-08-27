@@ -36,6 +36,7 @@ defmodule HeyWhatNow.MixProject do
       {:bcrypt_elixir, "~> 2.0"},
       {:phoenix, "~> 1.6.0-rc.0", override: true},
       {:phoenix_ecto, "~> 4.4"},
+      {:ecto_sanitizer, "~> 0.1.0"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
