@@ -17,6 +17,9 @@
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home), class: "font-bold text-purple-900 hover:text-purple-500" %></li>
             <% end %>
+            <%= if Mix.env() == :dev do%>
+              <li><%= link "Dev Mailbox", to: "/dev/mailbox", class: "font-bold text-purple-900 hover:text-purple-500" %></li>
+            <% end %>
           </ul>
           <%= render "_user_menu.html", assigns %>
         </nav>

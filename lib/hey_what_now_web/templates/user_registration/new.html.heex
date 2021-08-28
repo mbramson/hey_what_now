@@ -36,12 +36,8 @@
     </div>
   </.form>
 
-  <div class="md:flex md:items-center">
-    <div class="md:w-1/2">
-      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "font-bold text-purple-900 hover:text-purple-500" %>
-    </div>
-    <div class="md:w-1/2">
-      <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "font-bold text-purple-900 hover:text-purple-500" %>
-    </div>
-  </div>
+  <p>
+    <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "text-purple-900 hover:text-purple-500" %> |
+    <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "text-purple-900 hover:text-purple-500" %>
+  </p>
 </div>
