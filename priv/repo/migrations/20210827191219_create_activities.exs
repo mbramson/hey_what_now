@@ -6,6 +6,8 @@ defmodule HeyWhatNow.Repo.Migrations.CreateActivities do
       add(:name, :string, null: false)
       add(:key, :string, null: false)
 
+      add(:owner_id, references(:users, on_delete: :nilify_all), null: true)
+
       add(:started_at, :utc_datetime)
       add(:ended_at, :utc_datetime)
 
@@ -13,5 +15,6 @@ defmodule HeyWhatNow.Repo.Migrations.CreateActivities do
     end
 
     create unique_index(:activities, [:key])
+    create index(:activities, [:owner_id])
   end
 end

@@ -34,10 +34,12 @@ defmodule HeyWhatNow.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 2.0"},
+      {:dictionary, github: "rawandrew/dictionary"},
       {:phoenix, "~> 1.6.0-rc.0", override: true},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sanitizer, "~> 0.1.0"},
       {:ecto_sql, "~> 3.6"},
+      {:ex_machina, "~> 2.7", only: [:test, :dev]},
       {:mix_test_watch, "~> 0.6", only: :dev, runtime: false},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
