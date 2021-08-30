@@ -1,6 +1,9 @@
-defmodule HeyWhatNow.Activities.Activity do
+defmodule HeyWhatNow.Spaces.Space do
   @moduledoc """
-  Ecto schema and changeset for Activity
+  Ecto schema and changeset for a Space.
+
+  A space represents a session where users can ask questions, provider answers,
+  and upvote.
   """
 
   use Ecto.Schema
@@ -9,7 +12,7 @@ defmodule HeyWhatNow.Activities.Activity do
   alias __MODULE__
   alias HeyWhatNow.Accounts.User
 
-  schema "activities" do
+  schema "spaces" do
     field(:name, :string)
     field(:key, :string)
 
@@ -24,8 +27,8 @@ defmodule HeyWhatNow.Activities.Activity do
   @fields ~w(name key started_at ended_at owner_id)a
   @required_fields ~w(name key)a
 
-  def changeset(%Activity{} = activity, attrs) do
-    activity
+  def changeset(%Space{} = space, attrs) do
+    space
     |> cast(attrs, @fields)
     |> generate_key_if_missing
     |> validate_required(@required_fields)

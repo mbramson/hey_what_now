@@ -8,10 +8,10 @@ defmodule HeyWhatNow.Factory do
     }
   end
 
-  def activity_factory do
-    %HeyWhatNow.Activities.Activity{
-      name: sequence(:activity_name, &"activity_name_#{&1}"),
-      key: sequence(:activity_key, &"activity_key_#{&1}"),
+  def space_factory do
+    %HeyWhatNow.Spaces.Space{
+      name: sequence(:space_name, &"space_name_#{&1}"),
+      key: sequence(:space_key, &"space_key_#{&1}"),
       owner: build(:user)
     }
   end

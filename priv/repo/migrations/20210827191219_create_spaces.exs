@@ -1,8 +1,8 @@
-defmodule HeyWhatNow.Repo.Migrations.CreateActivities do
+defmodule HeyWhatNow.Repo.Migrations.CreateSpaces do
   use Ecto.Migration
 
   def change do
-    create table(:activities) do
+    create table(:spaces) do
       add(:name, :string, null: false)
       add(:key, :string, null: false)
 
@@ -14,7 +14,7 @@ defmodule HeyWhatNow.Repo.Migrations.CreateActivities do
       timestamps(type: :utc_datetime)
     end
 
-    create unique_index(:activities, [:key])
-    create index(:activities, [:owner_id])
+    create unique_index(:spaces, [:key])
+    create index(:spaces, [:owner_id])
   end
 end
