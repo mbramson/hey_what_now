@@ -1,41 +1,18 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
+<div class="bg-gray-100 text-center border-b-2 mb-3 pb-6 pt-12 rounded font-extralight text-xl">
+  <h1><%= gettext "Welcome to %{name}!", name: "HeyWhatNow" %></h1>
+  <p><%= gettext "Creating safe spaces to ask questions" %></p>
+</div>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">v1.6 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
-    </ul>
-  </article>
-</section>
+<div class="max-w-xl mx-auto bg-gray-100 p-6 rounded">
+  <div class="container flex flex-wrap p-6 m-6">
+    <div class="mx-auto text-center">
+      <%= link "Create New Space", to: "#", class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
+    </div>
+    <div class="mx-auto text-center mt-6 mb-6">
+      <%= form_for @changeset, "#", fn f -> %>
+        <%= text_input f, :activity_key, placeholder: "Space Key", class: "bg-gray-300 appearance-none rounded py-2 px-4 mb-2 text-gray-700 leading-tight focus:outline-none focus:bg-white border-2 focus:border-purple-500" %>
+        <%= submit "Go to Existing Space", class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
+      <% end %>
+    </div>
+  </div>
+</div>
