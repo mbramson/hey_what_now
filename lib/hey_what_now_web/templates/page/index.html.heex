@@ -6,7 +6,7 @@
 <div class="max-w-xl mx-auto bg-gray-100 p-6 rounded">
   <div class="flex flex-wrap m-6">
     <div class="mx-auto text-center">
-      <%= link "Create New Space", to: "#", class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
+      <%= link "Create New Space", to: Routes.space_path(@conn, :create), class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
     </div>
     <div class="mx-auto text-center mt-6 mb-6">
       <%= form_for @changeset, "#", fn f -> %>

@@ -25,11 +25,12 @@ defmodule HeyWhatNow.Spaces.Space do
   end
 
   @fields ~w(name key started_at ended_at owner_id)a
-  @required_fields ~w(name key)a
+  @required_fields ~w(key)a
 
   def changeset(%Space{} = space, attrs) do
     space
     |> cast(attrs, @fields)
+    |> generate_name_if_missing
     |> generate_key_if_missing
     |> validate_required(@required_fields)
     |> EctoSanitizer.sanitize_all_strings()
@@ -43,6 +44,15 @@ defmodule HeyWhatNow.Spaces.Space do
         "#{Dictionary.random_word()}_#{Dictionary.random_word()}_#{Dictionary.random_word()}"
         |> String.downcase()
       put_change(changeset, :key, generated_key)
+    end
+  end
+
+  defp generate_name_if_missing(changeset) do
+    if get_field(changeset, :name) do
+      changeset
+    else
+      default_name = "Untitled Space"
+      put_change(changeset, :name, default_name)
     end
   end
 end

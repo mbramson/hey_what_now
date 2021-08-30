@@ -21,6 +21,7 @@ defmodule HeyWhatNowWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/spaces/create", SpaceController, :create
   end
 
   # Other scopes may use custom stacks.
