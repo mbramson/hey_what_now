@@ -16,6 +16,18 @@ defmodule HeyWhatNow.SpacesTest do
     end
   end
 
+  describe "get_space_with_assocs_by_key/1" do
+    test "returns a space" do
+      space = Factory.insert(:space)
+      assert {:ok, returned_space} = Spaces.get_space_with_assocs_by_key(space.key)
+      assert returned_space.id == space.id
+    end
+
+    test "returns an error if space does not exist" do
+      assert {:error, {:not_found, :space}} = Spaces.get_space_with_assocs_by_key("not_a_key")
+    end
+  end
+
   describe "create_space/1" do
     test "creates an space " do
       user = Factory.insert(:user)
