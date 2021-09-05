@@ -6,12 +6,28 @@ defmodule HeyWhatNow.Spaces do
   space session, including questions asked, upvoting of questions, etc.
   """
 
-  alias HeyWhatNow.Spaces.Space
+  import Ecto.Query, warn: false
   alias HeyWhatNow.Repo
+
+  alias HeyWhatNow.Spaces.Space
+
+  def get_space_with_assocs(space_id) do
+    query =
+      from space in Space,
+        where: space.id == ^space_id
+
+    case Repo.one(query) do
+      %Space{} = space ->
+        {:ok, space}
+
+      nil ->
+        {:error, {:not_found, :space}}
+    end
+  end
 
   def create_space(params) do
     %Space{}
     |> Space.changeset(params)
-    |> Repo.insert
+    |> Repo.insert()
   end
 end
