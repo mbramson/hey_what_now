@@ -14,15 +14,9 @@ defmodule HeyWhatNow.Spaces do
   def get_space_with_assocs(space_id) do
     query =
       from space in Space,
-        where: space.id == ^space_id
-
-    retrieve_space_or_error(query)
-  end
-
-  def get_space_with_assocs_by_key(space_key) do
-    query =
-      from space in Space,
-        where: space.key == ^space_key
+        left_join: question in assoc(space, :questions),
+        where: space.id == ^space_id,
+        preload: [questions: question]
 
     retrieve_space_or_error(query)
   end

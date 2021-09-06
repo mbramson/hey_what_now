@@ -15,4 +15,11 @@ defmodule HeyWhatNow.Factory do
       owner: build(:user)
     }
   end
+
+  def question_factory do
+    %HeyWhatNow.Questions.Question{
+      space: build(:space),
+      text: sequence(:question_text, &"question_text_#{&1}")
+    }
+  end
 end

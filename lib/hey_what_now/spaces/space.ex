@@ -10,7 +10,9 @@ defmodule HeyWhatNow.Spaces.Space do
 
   import Ecto.Changeset
   alias __MODULE__
+
   alias HeyWhatNow.Accounts.User
+  alias HeyWhatNow.Questions.Question
 
   schema "spaces" do
     field(:name, :string)
@@ -20,6 +22,7 @@ defmodule HeyWhatNow.Spaces.Space do
     field(:ended_at, :utc_datetime)
 
     belongs_to(:owner, User)
+    has_many(:questions, Question)
 
     timestamps(type: :utc_datetime)
   end
@@ -43,6 +46,7 @@ defmodule HeyWhatNow.Spaces.Space do
       generated_key =
         "#{Dictionary.random_word()}_#{Dictionary.random_word()}_#{Dictionary.random_word()}"
         |> String.downcase()
+
       put_change(changeset, :key, generated_key)
     end
   end

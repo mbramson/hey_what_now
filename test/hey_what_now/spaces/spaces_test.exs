@@ -9,6 +9,22 @@ defmodule HeyWhatNow.SpacesTest do
       space = Factory.insert(:space)
       assert {:ok, returned_space} = Spaces.get_space_with_assocs(space.id)
       assert returned_space.id == space.id
+
+      assert Ecto.assoc_loaded?(returned_space.questions)
+      assert returned_space.questions == []
+    end
+
+    test "returns a space with questions associated with the space" do
+      space = Factory.insert(:space)
+      question = Factory.insert(:question, space: space)
+      _other_question = Factory.insert(:question)
+
+      assert {:ok, returned_space} = Spaces.get_space_with_assocs(space.id)
+      assert returned_space.id == space.id
+
+      assert Ecto.assoc_loaded?(returned_space.questions)
+      assert [returned_question] = returned_space.questions
+      assert returned_question.id == question.id
     end
 
     test "returns an error if space does not exist" do
@@ -16,15 +32,11 @@ defmodule HeyWhatNow.SpacesTest do
     end
   end
 
-  describe "get_space_with_assocs_by_key/1" do
-    test "returns a space" do
-      space = Factory.insert(:space)
-      assert {:ok, returned_space} = Spaces.get_space_with_assocs_by_key(space.key)
+  describe "get_space_by_key/1" do
+    test "returns space associated with the key" do
+      [space, _other_space] = Factory.insert_pair(:space)
+      assert {:ok, returned_space} = Spaces.get_space_by_key(space.key)
       assert returned_space.id == space.id
-    end
-
-    test "returns an error if space does not exist" do
-      assert {:error, {:not_found, :space}} = Spaces.get_space_with_assocs_by_key("not_a_key")
     end
   end
 
