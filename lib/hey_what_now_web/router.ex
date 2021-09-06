@@ -26,6 +26,13 @@ defmodule HeyWhatNowWeb.Router do
     post "/spaces/key/", SpaceKeyController, :show
     get "/spaces/key/:key", SpaceKeyController, :show
     live "/spaces/:id", SpaceLive.Show, :show
+
+    live "/answers", AnswerLive.Index, :index
+    live "/answers/new", AnswerLive.Index, :new
+    live "/answers/:id/edit", AnswerLive.Index, :edit
+
+    live "/answers/:id", AnswerLive.Show, :show
+    live "/answers/:id/show/edit", AnswerLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
