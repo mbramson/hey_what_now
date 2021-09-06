@@ -3,6 +3,7 @@
 <%= if @live_action in [:new_question, :edit_question] do %>
   <%= live_modal HeyWhatNowWeb.QuestionLive.FormComponent,
     id: @question.id || :new,
+    space_id: @space.id,
     title: @page_title,
     action: @live_action,
     question: @question,

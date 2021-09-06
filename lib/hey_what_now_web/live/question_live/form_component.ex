@@ -4,8 +4,8 @@ defmodule HeyWhatNowWeb.QuestionLive.FormComponent do
   alias HeyWhatNow.Questions
 
   @impl true
-  def update(%{question: question} = assigns, socket) do
-    changeset = Questions.change_question(question)
+  def update(%{question: question, space_id: space_id} = assigns, socket) do
+    changeset = Questions.change_question(question, %{space_id: space_id})
 
     {:ok,
      socket
@@ -27,7 +27,7 @@ defmodule HeyWhatNowWeb.QuestionLive.FormComponent do
     save_question(socket, socket.assigns.action, question_params)
   end
 
-  defp save_question(socket, :edit, question_params) do
+  defp save_question(socket, :edit_question, question_params) do
     case Questions.update_question(socket.assigns.question, question_params) do
       {:ok, _question} ->
         {:noreply,
@@ -40,7 +40,7 @@ defmodule HeyWhatNowWeb.QuestionLive.FormComponent do
     end
   end
 
-  defp save_question(socket, :new, question_params) do
+  defp save_question(socket, :new_question, question_params) do
     case Questions.create_question(question_params) do
       {:ok, _question} ->
         {:noreply,
