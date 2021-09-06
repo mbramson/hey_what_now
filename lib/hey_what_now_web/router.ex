@@ -26,6 +26,7 @@ defmodule HeyWhatNowWeb.Router do
     post "/spaces/key/", SpaceKeyController, :show
     get "/spaces/key/:key", SpaceKeyController, :show
     live "/spaces/:id", SpaceLive.Show, :show
+    live "/spaces/:id/questions/new", SpaceLive.Show, :new_question
 
     live "/answers", AnswerLive.Index, :index
     live "/answers/new", AnswerLive.Index, :new

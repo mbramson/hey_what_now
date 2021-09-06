@@ -1,14 +1,23 @@
 <h1>Show Space</h1>
 
+<%= if @live_action in [:new_question, :edit_question] do %>
+  <%= live_modal HeyWhatNowWeb.QuestionLive.FormComponent,
+    id: @question.id || :new,
+    title: @page_title,
+    action: @live_action,
+    question: @question,
+    return_to: Routes.space_show_path(@socket, :show, @space) %>
+<% end %>
+
 <ul>
   <li>Space ID: <%= @space.id %></li>
   <li>Space Key: <%= @space.key %></li>
   <li>Space Name: <%= @space.name %></li>
 </ul>
 
-<button phx-click="ask_question" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-  Ask Question
-</button>
+<div class="mt-2 mx-2 mb-3">
+  <%= live_patch "Ask Question", to: Routes.space_show_path(@socket, :new_question, @space), class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold m-2 py-2 px-4 rounded" %>
+</div>
 
 <div>
   <%= for question <- @space.questions do %>
