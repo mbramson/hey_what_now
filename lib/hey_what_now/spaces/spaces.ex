@@ -16,6 +16,7 @@ defmodule HeyWhatNow.Spaces do
       from space in Space,
         left_join: question in assoc(space, :questions),
         where: space.id == ^space_id,
+        order_by: [desc: question.id],
         preload: [questions: question]
 
     retrieve_space_or_error(query)

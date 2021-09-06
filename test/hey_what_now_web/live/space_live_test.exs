@@ -16,7 +16,8 @@ defmodule HeyWhatNowWeb.SpaceLiveTest do
     test "displays space", %{conn: conn, space: space} do
       {:ok, _show_live, html} = live(conn, Routes.space_show_path(conn, :show, space))
 
-      assert html =~ "Show Space"
+      assert html =~ space.name
+      assert html =~ space.key
     end
   end
 end
