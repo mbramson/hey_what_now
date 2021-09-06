@@ -4,7 +4,7 @@
   <%= live_modal HeyWhatNowWeb.QuestionLive.FormComponent,
     id: @question.id || :new,
     space_id: @space.id,
-    title: @page_title,
+    title: "What would you like to know?",
     action: @live_action,
     question: @question,
     return_to: Routes.space_show_path(@socket, :show, @space) %>

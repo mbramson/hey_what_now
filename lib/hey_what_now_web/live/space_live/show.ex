@@ -19,8 +19,8 @@ defmodule HeyWhatNowWeb.SpaceLive.Show do
      |> apply_action(socket.assigns.live_action, params)}
   end
 
-  defp page_title(:show), do: "Show Space"
-  defp page_title(:new_question), do: "New Question"
+  defp page_title(:show), do: "Show space"
+  defp page_title(:new_question), do: "Ask a question"
 
   defp get_space(id) do
     {:ok, space} = Spaces.get_space_with_assocs(id)
