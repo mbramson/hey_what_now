@@ -16,7 +16,7 @@ defmodule HeyWhatNowWeb.SpaceController do
     with {:ok, space} <- Spaces.create_space(params) do
       conn
       |> put_flash(:info, "Created space with key: #{space.key}")
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: Routes.space_show_path(conn, :show, space.id))
     end
   end
 

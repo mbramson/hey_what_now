@@ -9,7 +9,9 @@ defmodule HeyWhatNowWeb.SpaceControllerTest do
     test "creates a space and redirects", %{conn: conn} do
       conn = get(conn, Routes.space_path(conn, :create))
       assert get_flash(conn, :info) =~ "Created space with key"
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+
+      assert [created_space] = Repo.all(Space)
+      assert redirected_to(conn) == Routes.space_show_path(conn, :show, created_space)
 
       assert [created_space] = Repo.all(Space)
       assert created_space.name == "Untitled Space"
@@ -21,7 +23,9 @@ defmodule HeyWhatNowWeb.SpaceControllerTest do
       user = Factory.insert(:user)
       conn = get(conn, Routes.space_path(conn, :create, owner_id: user.id))
       assert get_flash(conn, :info) =~ "Created space with key"
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+
+      assert [created_space] = Repo.all(Space)
+      assert redirected_to(conn) == Routes.space_show_path(conn, :show, created_space)
 
       assert [created_space] = Repo.all(Space)
       assert created_space.owner_id == nil
@@ -47,9 +51,10 @@ defmodule HeyWhatNowWeb.SpaceControllerTest do
       conn = get(conn, Routes.space_path(conn, :create))
 
       assert get_flash(conn, :info) =~ "Created space with key"
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
 
       assert [created_space] = Repo.all(Space)
+      assert redirected_to(conn) == Routes.space_show_path(conn, :show, created_space)
+
       assert created_space.name == "Untitled Space"
       refute created_space.key == nil
       assert created_space.owner_id == user.id

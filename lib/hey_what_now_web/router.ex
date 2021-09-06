@@ -22,6 +22,8 @@ defmodule HeyWhatNowWeb.Router do
 
     get "/", PageController, :index
     get "/spaces/create", SpaceController, :create
+
+    live "/spaces/:id", SpaceLive.Show, :show
   end
 
   # Other scopes may use custom stacks.
