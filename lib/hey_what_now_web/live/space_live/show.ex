@@ -22,4 +22,10 @@ defmodule HeyWhatNowWeb.SpaceLive.Show do
     {:ok, space} = Spaces.get_space_with_assocs(id)
     space
   end
+
+  @impl true
+  def handle_event("ask_question", _value, socket) do
+    IO.inspect("ASKED")
+    {:noreply, socket}
+  end
 end

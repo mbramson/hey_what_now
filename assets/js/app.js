@@ -18,6 +18,8 @@
 //
 //     import "some-package"
 //
+// Used this tutorial to set this up:
+// https://sergiotapia.com/phoenix-160-liveview-esbuild-tailwind-jit-alpinejs-a-brief-tutorial
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
@@ -34,6 +36,7 @@ window.Alpine = Alpine;
 Alpine.start();
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+let hooks = {};
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
   hooks: hooks,

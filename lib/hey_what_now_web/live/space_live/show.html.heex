@@ -5,3 +5,15 @@
   <li>Space Key: <%= @space.key %></li>
   <li>Space Name: <%= @space.name %></li>
 </ul>
+
+<button phx-click="ask_question" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+  Ask Question
+</button>
+
+<div>
+  <%= for question <- @space.questions do %>
+    <div class="shadow-md p-6 m-2">
+      <%= question.text %>
+    </div>
+  <% end %>
+</div>
