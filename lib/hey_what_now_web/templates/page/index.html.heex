@@ -9,8 +9,8 @@
       <%= link "Create New Space", to: Routes.space_path(@conn, :create), class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
     </div>
     <div class="mx-auto text-center mt-6 mb-6">
-      <%= form_for @changeset, "#", fn f -> %>
-        <%= text_input f, :activity_key, placeholder: "Space Key", class: "bg-gray-300 appearance-none rounded py-2 px-4 mb-2 text-gray-700 leading-tight focus:outline-none focus:bg-white border-2 focus:border-purple-500" %>
+      <%= form_for @changeset, Routes.space_key_path(@conn, :show), fn f -> %>
+        <%= text_input f, :key, placeholder: "Space Key", class: "bg-gray-300 appearance-none rounded py-2 px-4 mb-2 text-gray-700 leading-tight focus:outline-none focus:bg-white border-2 focus:border-purple-500" %>
         <%= submit "Go to Existing Space", class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
       <% end %>
     </div>

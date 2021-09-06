@@ -23,6 +23,8 @@ defmodule HeyWhatNowWeb.Router do
     get "/", PageController, :index
     get "/spaces/create", SpaceController, :create
 
+    post "/spaces/key/", SpaceKeyController, :show
+    get "/spaces/key/:key", SpaceKeyController, :show
     live "/spaces/:id", SpaceLive.Show, :show
   end
 

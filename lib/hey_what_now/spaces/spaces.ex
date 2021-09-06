@@ -27,6 +27,13 @@ defmodule HeyWhatNow.Spaces do
     retrieve_space_or_error(query)
   end
 
+  def get_space_by_key(space_key) do
+    case Repo.get_by(Space, key: space_key) do
+      nil -> {:error, {:not_found, :space}}
+      space -> {:ok, space}
+    end
+  end
+
   defp retrieve_space_or_error(query) do
     case Repo.one(query) do
       %Space{} = space ->
