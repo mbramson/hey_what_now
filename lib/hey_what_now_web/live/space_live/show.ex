@@ -1,12 +1,15 @@
 defmodule HeyWhatNowWeb.SpaceLive.Show do
   use HeyWhatNowWeb, :live_view
 
+  alias Phoenix.PubSub
+
   alias HeyWhatNow.Spaces
   alias HeyWhatNow.Questions
   alias HeyWhatNow.Questions.Question
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(%{"id" => id}, _session, socket) do
+    PubSub.subscribe(HeyWhatNow.PubSub, "space:#{id}")
     {:ok, socket}
   end
 
@@ -39,5 +42,12 @@ defmodule HeyWhatNowWeb.SpaceLive.Show do
 
   defp apply_action(socket, :show, _params) do
     socket
+  end
+
+  @impl true
+  def handle_info(:refresh_space, socket) do
+    old_space = socket.assigns.space
+    new_socket = assign(socket, :space, get_space(old_space.id))
+    {:noreply, new_socket}
   end
 end

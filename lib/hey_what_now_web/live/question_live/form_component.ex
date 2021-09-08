@@ -2,6 +2,7 @@ defmodule HeyWhatNowWeb.QuestionLive.FormComponent do
   use HeyWhatNowWeb, :live_component
 
   alias HeyWhatNow.Questions
+  alias Phoenix.PubSub
 
   @impl true
   def update(%{question: question, space_id: space_id} = assigns, socket) do
@@ -30,9 +31,10 @@ defmodule HeyWhatNowWeb.QuestionLive.FormComponent do
   defp save_question(socket, :edit_question, question_params) do
     case Questions.update_question(socket.assigns.question, question_params) do
       {:ok, _question} ->
+        refresh_space_for_all_users(socket)
+
         {:noreply,
          socket
-         |> put_flash(:info, "Question updated successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -43,13 +45,19 @@ defmodule HeyWhatNowWeb.QuestionLive.FormComponent do
   defp save_question(socket, :new_question, question_params) do
     case Questions.create_question(question_params) do
       {:ok, _question} ->
+        refresh_space_for_all_users(socket)
+
         {:noreply,
          socket
-         |> put_flash(:info, "Question created successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  defp refresh_space_for_all_users(socket) do
+    space_id = socket.assigns.space_id
+    PubSub.broadcast(HeyWhatNow.PubSub, "space:#{space_id}", :refresh_space)
   end
 end
