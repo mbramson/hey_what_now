@@ -5,6 +5,7 @@ defmodule HeyWhatNow.Repo.Migrations.CreateQuestions do
     create table(:questions) do
       add(:space_id, references(:spaces, on_delete: :nilify_all))
       add(:text, :string, size: 10_000)
+      add(:is_answered, :boolean, default: false, null: false)
 
       timestamps(type: :utc_datetime)
     end

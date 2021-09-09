@@ -45,9 +45,27 @@ defmodule HeyWhatNowWeb.SpaceLive.Show do
   end
 
   @impl true
+  def handle_event("mark_answered", %{"question-id" => question_id}, socket) do
+    question_id = String.to_integer(question_id)
+
+    attrs = %{is_answered: true}
+    question = Enum.find(socket.assigns.space.questions, &(&1.id == question_id))
+    result = Questions.update_question(question, attrs)
+
+    refresh_space_for_all_users(socket)
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_info(:refresh_space, socket) do
     old_space = socket.assigns.space
     new_socket = assign(socket, :space, get_space(old_space.id))
     {:noreply, new_socket}
+  end
+
+  defp refresh_space_for_all_users(socket) do
+    space_id = socket.assigns.space.id
+    PubSub.broadcast(HeyWhatNow.PubSub, "space:#{space_id}", :refresh_space)
   end
 end

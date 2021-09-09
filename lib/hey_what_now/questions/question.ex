@@ -13,12 +13,14 @@ defmodule HeyWhatNow.Questions.Question do
 
   schema "questions" do
     field(:text, :string)
+    field(:is_answered, :boolean)
+
     belongs_to(:space, Space)
 
     timestamps(type: :utc_datetime)
   end
 
-  @fields ~w(text space_id)a
+  @fields ~w(text space_id is_answered)a
   @required_fields ~w(text)a
 
   def changeset(%Question{} = question, attrs) do

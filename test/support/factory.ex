@@ -19,7 +19,12 @@ defmodule HeyWhatNow.Factory do
   def question_factory do
     %HeyWhatNow.Questions.Question{
       space: build(:space),
-      text: sequence(:question_text, &"question_text_#{&1}")
+      text: sequence(:question_text, &"question_text_#{&1}"),
+      is_answered: random_boolean()
     }
+  end
+
+  defp random_boolean do
+    Enum.random([true, false])
   end
 end
