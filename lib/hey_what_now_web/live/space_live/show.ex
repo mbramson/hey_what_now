@@ -50,7 +50,7 @@ defmodule HeyWhatNowWeb.SpaceLive.Show do
 
     attrs = %{is_answered: true}
     question = Enum.find(socket.assigns.space.questions, &(&1.id == question_id))
-    result = Questions.update_question(question, attrs)
+    Questions.update_question(question, attrs)
 
     refresh_space_for_all_users(socket)
 
