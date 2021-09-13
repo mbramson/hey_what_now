@@ -8,6 +8,10 @@ defmodule HeyWhatNow.Factory do
     }
   end
 
+  def anonymous_session_factory do
+    %HeyWhatNow.AnonymousSessions.AnonymousSession{}
+  end
+
   def space_factory do
     %HeyWhatNow.Spaces.Space{
       name: sequence(:space_name, &"space_name_#{&1}"),

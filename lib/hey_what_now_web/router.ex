@@ -1,6 +1,7 @@
 defmodule HeyWhatNowWeb.Router do
   use HeyWhatNowWeb, :router
 
+  import HeyWhatNow.AnonymousSessions.AnonymousSessionPlugs
   import HeyWhatNowWeb.UserAuth
 
   pipeline :browser do
@@ -18,7 +19,7 @@ defmodule HeyWhatNowWeb.Router do
   end
 
   scope "/", HeyWhatNowWeb do
-    pipe_through :browser
+    pipe_through [:browser, :add_anonymous_session_if_no_current_user]
 
     get "/", PageController, :index
     get "/spaces/create", SpaceController, :create
