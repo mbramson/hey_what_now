@@ -12,6 +12,7 @@ defmodule HeyWhatNow.Spaces.Space do
   alias __MODULE__
 
   alias HeyWhatNow.Accounts.User
+  alias HeyWhatNow.AnonymousSessions.AnonymousSession
   alias HeyWhatNow.Questions.Question
 
   schema "spaces" do
@@ -22,12 +23,14 @@ defmodule HeyWhatNow.Spaces.Space do
     field(:ended_at, :utc_datetime)
 
     belongs_to(:owner, User)
+    belongs_to(:anonymous_owner, AnonymousSession, type: :binary_id)
+
     has_many(:questions, Question)
 
     timestamps(type: :utc_datetime)
   end
 
-  @fields ~w(name key started_at ended_at owner_id)a
+  @fields ~w(name key started_at ended_at owner_id anonymous_owner_id)a
   @required_fields ~w(key)a
 
   def changeset(%Space{} = space, attrs) do

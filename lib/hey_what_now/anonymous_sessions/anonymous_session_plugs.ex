@@ -10,10 +10,10 @@ defmodule HeyWhatNow.AnonymousSessions.AnonymousSessionPlugs do
 
   def add_anonymous_session_if_no_current_user(conn, _opts) do
     if conn.assigns[:current_user] do
-      conn
+      assign(conn, :anonymous_session_id, nil)
     else
-      if get_session(conn, :anonymous_session_id) do
-        conn
+      if anonymous_session_id = get_session(conn, :anonymous_session_id) do
+        assign(conn, :anonymous_session_id, anonymous_session_id)
       else
         {:ok, anonymous_session} = AnonymousSessions.create_anonymous_session()
 

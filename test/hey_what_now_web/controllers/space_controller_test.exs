@@ -4,6 +4,7 @@ defmodule HeyWhatNowWeb.SpaceControllerTest do
   alias HeyWhatNow.Factory
   alias HeyWhatNow.Repo
   alias HeyWhatNow.Spaces.Space
+  alias HeyWhatNow.AnonymousSessions.AnonymousSession
 
   describe "create/2" do
     test "creates a space and redirects", %{conn: conn} do
@@ -17,6 +18,10 @@ defmodule HeyWhatNowWeb.SpaceControllerTest do
       assert created_space.name == "Untitled Space"
       refute created_space.key == nil
       assert created_space.owner_id == nil
+
+      assert [created_anonymous_session] = Repo.all(AnonymousSession)
+
+      assert created_space.anonymous_owner_id == created_anonymous_session.id
     end
 
     test "does not allow specifying an arbitrary owner", %{conn: conn} do
@@ -58,6 +63,7 @@ defmodule HeyWhatNowWeb.SpaceControllerTest do
       assert created_space.name == "Untitled Space"
       refute created_space.key == nil
       assert created_space.owner_id == user.id
+      assert created_space.anonymous_owner_id == nil
     end
   end
 end

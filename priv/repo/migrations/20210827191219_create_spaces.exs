@@ -8,6 +8,12 @@ defmodule HeyWhatNow.Repo.Migrations.CreateSpaces do
 
       add(:owner_id, references(:users, on_delete: :nilify_all), null: true)
 
+      add(
+        :anonymous_owner_id,
+        references(:anonymous_sessions, type: :binary_id, on_delete: :nilify_all),
+        null: true
+      )
+
       add(:started_at, :utc_datetime)
       add(:ended_at, :utc_datetime)
 
@@ -16,5 +22,6 @@ defmodule HeyWhatNow.Repo.Migrations.CreateSpaces do
 
     create unique_index(:spaces, [:key])
     create index(:spaces, [:owner_id])
+    create index(:spaces, [:anonymous_owner_id])
   end
 end

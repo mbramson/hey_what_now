@@ -11,7 +11,12 @@ defmodule HeyWhatNowWeb.SpaceController do
 
   def create(conn, params) do
     user = conn.assigns.current_user
-    params = add_current_user_to_params_as_owner(params, user)
+    anonymous_session_id = conn.assigns.anonymous_session_id
+
+    params =
+      params
+      |> add_current_user_to_params_as_owner(user)
+      |> add_anonymous_session_id_to_params_as_anonymous_owner(anonymous_session_id)
 
     with {:ok, space} <- Spaces.create_space(params) do
       conn
@@ -26,5 +31,13 @@ defmodule HeyWhatNowWeb.SpaceController do
 
   defp add_current_user_to_params_as_owner(params, user) do
     Map.put(params, "owner_id", user.id)
+  end
+
+  defp add_anonymous_session_id_to_params_as_anonymous_owner(params, nil) do
+    Map.put(params, "anonymous_owner_id", nil)
+  end
+
+  defp add_anonymous_session_id_to_params_as_anonymous_owner(params, anonymous_session_id) do
+    Map.put(params, "anonymous_owner_id", anonymous_session_id)
   end
 end
