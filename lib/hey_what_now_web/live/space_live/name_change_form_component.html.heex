@@ -1,0 +1,18 @@
+<div>
+  <.form
+    let={f}
+    for={@changeset}
+    id="space-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+
+    <%= label f, :name, "What should this space be called?", class: "font-bold" %>
+    <%= error_tag f, :name %>
+    <%= text_input f, :name, required: true, placeholder: "Name of this space", autocomplete: "off", class: "form-textarea block bg-gray-200 appearance-none rounded w-full p-2 text-gray-700 leading-tight focus:outline-none focus:bg-white border-2 focus:border-purple-500" %>
+  
+    <div class="mt-4">
+      <%= submit "Rename", phx_disable_with: "Renaming...", class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  </.form>
+</div>

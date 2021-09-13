@@ -44,4 +44,14 @@ defmodule HeyWhatNow.Spaces do
     |> Space.changeset(params)
     |> Repo.insert()
   end
+
+  def update_space(%Space{} = space, attrs) do
+    space
+    |> Space.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def change_space(%Space{} = space, attrs \\ %{}) do
+    Space.changeset(space, attrs)
+  end
 end

@@ -24,6 +24,7 @@ defmodule HeyWhatNowWeb.SpaceLive.Show do
 
   defp page_title(:show), do: "Show space"
   defp page_title(:new_question), do: "Ask question"
+  defp page_title(:update_name), do: "Update space name"
 
   defp get_space(id) do
     {:ok, space} = Spaces.get_space_with_assocs(id)
@@ -41,6 +42,10 @@ defmodule HeyWhatNowWeb.SpaceLive.Show do
   end
 
   defp apply_action(socket, :show, _params) do
+    socket
+  end
+
+  defp apply_action(socket, :update_name, _params) do
     socket
   end
 

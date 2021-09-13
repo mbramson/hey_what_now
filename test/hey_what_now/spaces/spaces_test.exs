@@ -63,4 +63,22 @@ defmodule HeyWhatNow.SpacesTest do
       assert "is invalid" in errors_on(changeset)[:name]
     end
   end
+
+  describe "update_space/1" do
+    test "updates an existing space" do
+      space = Factory.insert(:space)
+      params = Factory.string_params_for(:space)
+
+      assert {:ok, updated_space} = Spaces.update_space(space, params)
+      assert updated_space.name == params["name"]
+    end
+
+    test "returns an error for an invalid param" do
+      space = Factory.insert(:space)
+      params = Factory.string_params_for(:space, name: 123)
+
+      assert {:error, changeset} = Spaces.update_space(space, params)
+      assert "is invalid" in errors_on(changeset)[:name]
+    end
+  end
 end

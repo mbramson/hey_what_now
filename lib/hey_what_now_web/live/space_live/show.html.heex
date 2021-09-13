@@ -1,5 +1,7 @@
 <h4>
-  <%= @space.name %>
+  <div class="hover:text-purple-800">
+  <%= link @space.name, to: Routes.space_show_path(@socket, :update_name, @space) %>
+  </div>
 </h4>
 <div class="text-gray-400 font-thin mb-6">key: <%= @space.key %></div>
 
@@ -10,6 +12,15 @@
     title: "What would you like to know?",
     action: @live_action,
     question: @question,
+    return_to: Routes.space_show_path(@socket, :show, @space) %>
+<% end %>
+
+<%= if @live_action in [:update_name] do %>
+  <%= live_modal HeyWhatNowWeb.SpaceLive.NameChangeFormComponent,
+    id: @space.id,
+    title: "Update Space Name",
+    action: @live_action,
+    space: @space,
     return_to: Routes.space_show_path(@socket, :show, @space) %>
 <% end %>
 
